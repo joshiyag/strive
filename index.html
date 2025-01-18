@@ -1,331 +1,375 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        .calculator {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            font-family: Arial, sans-serif;
-        }
+   <style>
+       .calculator {
+           max-width: 800px;
+           margin: 20px auto;
+           padding: 20px;
+           border-radius: 8px;
+           box-shadow: 0 0 10px rgba(0,0,0,0.1);
+           font-family: Arial, sans-serif;
+       }
 
-        .experience-entry {
-            background: #f9f9f9;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-            position: relative;
-        }
+       .experience-entry {
+           background: #f9f9f9;
+           padding: 15px;
+           margin-bottom: 15px;
+           border-radius: 4px;
+           position: relative;
+       }
 
-        .input-group {
-            margin-bottom: 15px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-        }
+       .input-group {
+           margin-bottom: 15px;
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+           gap: 10px;
+       }
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-            font-weight: bold;
-        }
+       label {
+           display: block;
+           margin-bottom: 5px;
+           color: #333;
+           font-weight: bold;
+       }
 
-        input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
+       input {
+           width: 100%;
+           padding: 8px;
+           border: 1px solid #ddd;
+           border-radius: 4px;
+           box-sizing: border-box;
+       }
 
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 5px;
-        }
+       button {
+           background-color: #4CAF50;
+           color: white;
+           padding: 10px 15px;
+           border: none;
+           border-radius: 4px;
+           cursor: pointer;
+           margin: 5px;
+       }
 
-        button:hover {
-            background-color: #45a049;
-        }
+       button:hover {
+           background-color: #45a049;
+       }
 
-        .remove-btn {
-            background-color: #ff4444;
-            position: absolute;
-            right: 10px;
-            top: 10px;
-        }
+       .remove-btn {
+           background-color: #ff4444;
+           position: absolute;
+           right: 10px;
+           top: 10px;
+       }
 
-        .remove-btn:hover {
-            background-color: #cc0000;
-        }
+       .remove-btn:hover {
+           background-color: #cc0000;
+       }
 
-        .refresh-btn {
-            background-color: #2196F3;
-        }
+       .refresh-btn {
+           background-color: #2196F3;
+       }
 
-        .refresh-btn:hover {
-            background-color: #0b7dda;
-        }
+       .refresh-btn:hover {
+           background-color: #0b7dda;
+       }
 
-        #gaps, #totals {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f8f8f8;
-            border-radius: 4px;
-        }
+       #gaps, #totals {
+           margin-top: 20px;
+           padding: 15px;
+           background-color: #f8f8f8;
+           border-radius: 4px;
+       }
 
-        .experience-timeline-entry {
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            background-color: #e8f5e9;
-            border-left: 4px solid #4CAF50;
-        }
+       .experience-timeline-entry {
+           margin: 10px 0;
+           padding: 10px;
+           border-radius: 4px;
+           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+           background-color: #e8f5e9;
+           border-left: 4px solid #4CAF50;
+       }
 
-        .gap-timeline-entry {
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            background-color: #ffebee;
-            border-left: 4px solid #ff4444;
-        }
+       .gap-timeline-entry {
+           margin: 10px 0;
+           padding: 10px;
+           border-radius: 4px;
+           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+           background-color: #ffebee;
+           border-left: 4px solid #ff4444;
+       }
 
-        .controls {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-        }
+       .controls {
+           display: flex;
+           gap: 10px;
+           margin: 15px 0;
+       }
 
-        #sortedExperiences {
-            margin-top: 20px;
-        }
+       #sortedExperiences {
+           margin-top: 20px;
+       }
 
-        .summary-box {
-            background-color: #e3f2fd;
-            padding: 15px;
-            border-radius: 4px;
-            margin-top: 20px;
-            border-left: 4px solid #2196F3;
-        }
+       .summary-box {
+           background-color: #e3f2fd;
+           padding: 15px;
+           border-radius: 4px;
+           margin-top: 20px;
+           border-left: 4px solid #2196F3;
+       }
 
-        .total-item {
-            margin: 10px 0;
-            font-size: 1.1em;
-        }
-    </style>
+       .total-item {
+           margin: 10px 0;
+           font-size: 1.1em;
+       }
+
+       .error-box {
+           background-color: #ffebee;
+           padding: 15px;
+           border-radius: 4px;
+           margin-top: 20px;
+           border-left: 4px solid #ff4444;
+           color: #c62828;
+       }
+   </style>
 </head>
 <body>
-    <div class="calculator">
-        <h2>Experience Gap Calculator</h2>
-        
-        <div id="experiences"></div>
-        
-        <div class="controls">
-            <button onclick="addExperience()">Add Experience</button>
-            <button onclick="calculateGaps()">Calculate Gaps</button>
-            <button onclick="refreshCalculator()" class="refresh-btn">Refresh</button>
-        </div>
+   <div class="calculator">
+       <h2>Experience Gap Calculator</h2>
+       
+       <div id="experiences"></div>
+       
+       <div class="controls">
+           <button onclick="addExperience()">Add Experience</button>
+           <button onclick="calculateGaps()">Calculate Gaps</button>
+           <button onclick="refreshCalculator()" class="refresh-btn">Refresh</button>
+       </div>
 
-        <div id="totals"></div>
-        <div id="sortedExperiences"></div>
-    </div>
+       <div id="totals"></div>
+       <div id="sortedExperiences"></div>
+   </div>
 
-    <script>
-        let experienceCount = 0;
+   <script>
+       let experienceCount = 0;
 
-        function addExperience() {
-            const experiencesDiv = document.getElementById('experiences');
-            const newExperience = document.createElement('div');
-            newExperience.className = 'experience-entry';
-            newExperience.id = `experience-${experienceCount}`;
-            
-            newExperience.innerHTML = `
-                <button class="remove-btn" onclick="removeExperience(${experienceCount})">×</button>
-                <div class="input-group">
-                    <div>
-                        <label>Company/Position:</label>
-                        <input type="text" id="title-${experienceCount}">
-                    </div>
-                    <div>
-                        <label>Start Date:</label>
-                        <input type="date" id="start-${experienceCount}">
-                    </div>
-                    <div>
-                        <label>End Date:</label>
-                        <input type="date" id="end-${experienceCount}">
-                    </div>
-                </div>
-            `;
-            
-            experiencesDiv.appendChild(newExperience);
-            experienceCount++;
-        }
+       function addExperience() {
+           const experiencesDiv = document.getElementById('experiences');
+           const newExperience = document.createElement('div');
+           newExperience.className = 'experience-entry';
+           newExperience.id = `experience-${experienceCount}`;
+           
+           newExperience.innerHTML = `
+               <button class="remove-btn" onclick="removeExperience(${experienceCount})">×</button>
+               <div class="input-group">
+                   <div>
+                       <label>Company/Position:</label>
+                       <input type="text" id="title-${experienceCount}">
+                   </div>
+                   <div>
+                       <label>Start Date:</label>
+                       <input type="date" id="start-${experienceCount}">
+                   </div>
+                   <div>
+                       <label>End Date:</label>
+                       <input type="date" id="end-${experienceCount}">
+                   </div>
+               </div>
+           `;
+           
+           experiencesDiv.appendChild(newExperience);
+           experienceCount++;
+       }
 
-        function removeExperience(id) {
-            const element = document.getElementById(`experience-${id}`);
-            element.remove();
-        }
+       function removeExperience(id) {
+           const element = document.getElementById(`experience-${id}`);
+           element.remove();
+       }
 
-        function refreshCalculator() {
-            document.getElementById('experiences').innerHTML = '';
-            document.getElementById('sortedExperiences').innerHTML = '';
-            document.getElementById('totals').innerHTML = '';
-            experienceCount = 0;
-            addExperience();
-        }
+       function refreshCalculator() {
+           document.getElementById('experiences').innerHTML = '';
+           document.getElementById('sortedExperiences').innerHTML = '';
+           document.getElementById('totals').innerHTML = '';
+           experienceCount = 0;
+           addExperience();
+       }
 
-        function formatDuration(days) {
-            const years = Math.floor(days / 365);
-            const months = Math.floor((days % 365) / 30);
-            const remainingDays = days % 30;
-            return `${years} years, ${months} months, ${remainingDays} days`;
-        }
+       function formatDuration(days) {
+           const years = Math.floor(days / 365);
+           const months = Math.floor((days % 365) / 30);
+           const remainingDays = days % 30;
+           return `${years} years, ${months} months, ${remainingDays} days`;
+       }
 
-        function calculateTotalDuration(experiences) {
-            let totalDays = 0;
-            experiences.forEach(exp => {
-                const diffTime = Math.abs(exp.end - exp.start);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                totalDays += diffDays;
-            });
-            return totalDays;
-        }
+       function calculateTotalDuration(experiences) {
+           let totalDays = 0;
+           experiences.forEach(exp => {
+               const diffTime = Math.abs(exp.end - exp.start);
+               const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+               totalDays += diffDays;
+           });
+           return totalDays;
+       }
 
-        function calculateTotalGapDuration(gaps) {
-            let totalGapDays = 0;
-            gaps.forEach(gap => {
-                const diffTime = Math.abs(gap.end - gap.start);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                totalGapDays += diffDays;
-            });
-            return totalGapDays;
-        }
+       function calculateTotalGapDuration(gaps) {
+           let totalGapDays = 0;
+           gaps.forEach(gap => {
+               const diffTime = Math.abs(gap.end - gap.start);
+               const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+               totalGapDays += diffDays;
+           });
+           return totalGapDays;
+       }
 
-        function calculateGaps() {
-            const experiences = [];
-            const experienceEntries = document.getElementsByClassName('experience-entry');
-            
-            for (let entry of experienceEntries) {
-                const id = entry.id.split('-')[1];
-                const title = document.getElementById(`title-${id}`).value;
-                const start = new Date(document.getElementById(`start-${id}`).value);
-                const end = new Date(document.getElementById(`end-${id}`).value);
-                
-                if (title && !isNaN(start) && !isNaN(end)) {
-                    experiences.push({ title, start, end });
-                }
-            }
+       function validateExperiences(experiences) {
+           // Sort experiences by start date
+           experiences.sort((a, b) => a.start - b.start);
+           
+           // Check for overlaps
+           for (let i = 0; i < experiences.length - 1; i++) {
+               if (experiences[i].end > experiences[i + 1].start) {
+                   return {
+                       valid: false,
+                       error: `Overlapping dates detected between "${experiences[i].title}" and "${experiences[i + 1].title}"`
+                       
+                   };
+               }
+           }
+           return { valid: true };
+       }
 
-            experiences.sort((a, b) => a.start - b.start);
+       function calculateGaps() {
+           const experiences = [];
+           const experienceEntries = document.getElementsByClassName('experience-entry');
+           
+           for (let entry of experienceEntries) {
+               const id = entry.id.split('-')[1];
+               let title = document.getElementById(`title-${id}`).value.trim();
+               const start = new Date(document.getElementById(`start-${id}`).value);
+               const end = new Date(document.getElementById(`end-${id}`).value);
+               
+               if (!isNaN(start) && !isNaN(end)) {
+                   // If title is blank, generate "Year Experience X"
+                   if (!title) {
+                       const yearStart = start.getFullYear();
+                       const yearEnd = end.getFullYear();
+                       title = `Year Experience ${yearStart}-${yearEnd}`;
+                   }
+                   experiences.push({ title, start, end });
+               }
+           }
 
-            const gaps = [];
-            for (let i = 0; i < experiences.length - 1; i++) {
-                const currentEnd = experiences[i].end;
-                const nextStart = experiences[i + 1].start;
-                
-                if (currentEnd < nextStart) {
-                    gaps.push({
-                        from: experiences[i].title,
-                        to: experiences[i + 1].title,
-                        start: currentEnd,
-                        end: nextStart
-                    });
-                }
-            }
+           // Validate experiences for overlaps
+           const validation = validateExperiences(experiences);
+           if (!validation.valid) {
+               const errorDiv = document.getElementById('totals');
+               errorDiv.innerHTML = `
+                   <div class="error-box">
+                       <h3>Error</h3>
+                       <p>${validation.error}</p>
+                   </div>
+               `;
+               document.getElementById('sortedExperiences').innerHTML = '';
+               return;
+           }
 
-            displayResults(experiences, gaps);
-        }
+           const gaps = [];
+           for (let i = 0; i < experiences.length - 1; i++) {
+               const currentEnd = experiences[i].end;
+               const nextStart = experiences[i + 1].start;
+               
+               if (currentEnd < nextStart) {
+                   gaps.push({
+                       from: experiences[i].title,
+                       to: experiences[i + 1].title,
+                       start: currentEnd,
+                       end: nextStart
+                   });
+               }
+           }
 
-        function displayResults(experiences, gaps) {
-            // Create combined timeline array
-            let timelineEvents = [];
-            
-            // Add experiences to timeline
-            experiences.forEach(exp => {
-                timelineEvents.push({
-                    type: 'experience',
-                    title: exp.title,
-                    start: exp.start,
-                    end: exp.end
-                });
-            });
+           displayResults(experiences, gaps);
+       }
 
-            // Add gaps to timeline
-            gaps.forEach(gap => {
-                timelineEvents.push({
-                    type: 'gap',
-                    from: gap.from,
-                    to: gap.to,
-                    start: gap.start,
-                    end: gap.end
-                });
-            });
+       function displayResults(experiences, gaps) {
+           // Create combined timeline array
+           let timelineEvents = [];
+           
+           // Add experiences to timeline
+           experiences.forEach(exp => {
+               timelineEvents.push({
+                   type: 'experience',
+                   title: exp.title,
+                   start: exp.start,
+                   end: exp.end
+               });
+           });
 
-            // Sort all events by start date
-            timelineEvents.sort((a, b) => a.start - b.start);
+           // Add gaps to timeline
+           gaps.forEach(gap => {
+               timelineEvents.push({
+                   type: 'gap',
+                   from: gap.from,
+                   to: gap.to,
+                   start: gap.start,
+                   end: gap.end
+               });
+           });
 
-            // Display combined timeline
-            const sortedDiv = document.getElementById('sortedExperiences');
-            let sortedHTML = '<h3>Chronological Timeline:</h3>';
-            
-            timelineEvents.forEach(event => {
-                const diffTime = Math.abs(event.end - event.start);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                
-                if (event.type === 'experience') {
-                    sortedHTML += `
-                        <div class="experience-timeline-entry">
-                            <strong>${event.title}</strong><br>
-                            ${event.start.toLocaleDateString()} - ${event.end.toLocaleDateString()}<br>
-                            Duration: ${formatDuration(diffDays)}
-                        </div>
-                    `;
-                } else {
-                    sortedHTML += `
-                        <div class="gap-timeline-entry">
-                            <strong>Gap between ${event.from} and ${event.to}:</strong><br>
-                            ${event.start.toLocaleDateString()} - ${event.end.toLocaleDateString()}<br>
-                            Duration: ${formatDuration(diffDays)}
-                        </div>
-                    `;
-                }
-            });
-            sortedDiv.innerHTML = sortedHTML;
+           // Sort all events by start date
+           timelineEvents.sort((a, b) => a.start - b.start);
 
-            // Calculate and display totals
-            const totalExperienceDays = calculateTotalDuration(experiences);
-            const totalGapDays = calculateTotalGapDuration(gaps);
+           // Display combined timeline
+           const sortedDiv = document.getElementById('sortedExperiences');
+           let sortedHTML = '<h3>Chronological Timeline:</h3>';
+           
+           timelineEvents.forEach(event => {
+               const diffTime = Math.abs(event.end - event.start);
+               const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+               
+               if (event.type === 'experience') {
+                   sortedHTML += `
+                       <div class="experience-timeline-entry">
+                           <strong>${event.title}</strong><br>
+                           ${event.start.toLocaleDateString()} - ${event.end.toLocaleDateString()}<br>
+                           Duration: ${formatDuration(diffDays)}
+                       </div>
+                   `;
+               } else {
+                   sortedHTML += `
+                       <div class="gap-timeline-entry">
+                           <strong>Gap between ${event.from} and ${event.to}:</strong><br>
+                           ${event.start.toLocaleDateString()} - ${event.end.toLocaleDateString()}<br>
+                           Duration: ${formatDuration(diffDays)}
+                       </div>
+                   `;
+               }
+           });
+           sortedDiv.innerHTML = sortedHTML;
 
-            const totalsDiv = document.getElementById('totals');
-            totalsDiv.innerHTML = `
-                <div class="summary-box">
-                    <h3>Summary</h3>
-                    <div class="total-item">
-                        <strong>Total Experience:</strong> ${formatDuration(totalExperienceDays)}
-                    </div>
-                    <div class="total-item">
-                        <strong>Total Gap Time:</strong> ${formatDuration(totalGapDays)}
-                    </div>
-                    <div class="total-item">
-                        <strong>Number of Positions:</strong> ${experiences.length}
-                    </div>
-                    <div class="total-item">
-                        <strong>Number of Gaps:</strong> ${gaps.length}
-                    </div>
-                </div>
-            `;
-        }
+           // Calculate and display totals
+           const totalExperienceDays = calculateTotalDuration(experiences);
+           const totalGapDays = calculateTotalGapDuration(gaps);
 
-        addExperience();
-    </script>
+           const totalsDiv = document.getElementById('totals');
+           totalsDiv.innerHTML = `
+               <div class="summary-box">
+                   <h3>Summary</h3>
+                   <div class="total-item">
+                       <strong>Total Experience:</strong> ${formatDuration(totalExperienceDays)}
+                   </div>
+                   <div class="total-item">
+                       <strong>Total Gap Time:</strong> ${formatDuration(totalGapDays)}
+                   </div>
+                   <div class="total-item">
+                       <strong>Number of Positions:</strong> ${experiences.length}
+                   </div>
+                   <div class="total-item">
+                       <strong>Number of Gaps:</strong> ${gaps.length}
+                   </div>
+               </div>
+           `;
+       }
+
+       addExperience();
+   </script>
 </body>
 </html>
